@@ -1,31 +1,99 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+    <Notification />
+
+    <div id="nav-normal" v-if="$route.name === 'Login'">
+      <router-view/>
     </div>
-    <router-view/>
+
+    <div id="nav-login" v-else-if="loaded">
+      <TheHeader :generalInfo="generalInfo" />
+
+      <div id="main-content">
+        <TheNavigator :generalInfo="generalInfo" />
+
+        <div id="page-content">
+          <div id="page-name">{{ $route.name }}</div>
+          <router-view/>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
-<style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+<script>
+// Import components
+import TheHeader from "@/components/common/TheHeader";
+import TheNavigator from "@/components/common/TheNavigator";
+
+import Notification from "@/components/common/Notification";
+
+// Import services
+import GeneralService from "@/services/GeneralService";
+
+// Import other things
+import EventBus from "@/bus";
+
+export default {
+  components: {
+    TheHeader,
+    TheNavigator,
+    Notification
+  },
+
+  data: () => ({
+    loaded: false,
+    generalInfo: {}
+  }),
+
+  created() {
+    const that = this;
+    EventBus.$on('refreshGeneralInfo', async () => {
+      await that.refreshGeneralInfo();
+    });
+
+    EventBus.$on('logOut', async () => {
+      localStorage.removeItem("authHeader");
+      await this.refreshGeneralInfo();
+    });
+  },
+
+  async mounted() {
+    await this.refreshGeneralInfo();
+  },
+
+  methods: {
+    async refreshGeneralInfo() {
+      try {
+        this.generalInfo = await GeneralService.getGeneralInfo();
+        this.loaded = true;
+      } catch(e) {
+        await this.$router.push('/login');
+        this.$router.go(1);
+      }
+    }
+  }
 }
+</script>
 
-#nav {
-  padding: 30px;
+<style lang="scss">
+// Global non-scoped import of main.scss
+@import "scss/main.scss";
 
-  a {
-    font-weight: bold;
-    color: #2c3e50;
+#main-content {
+  display: grid;
+  grid-template-columns: 200px 1fr;
 
-    &.router-link-exact-active {
-      color: #42b983;
+  #page-content {
+    padding: 20px;
+    overflow-y: auto;
+    max-height: calc(100vh - 80px);
+
+    #page-name {
+      margin-bottom: 20px;
+      font-weight: bold;
+      font-size: 20px;
+      color: #444;
     }
   }
 }

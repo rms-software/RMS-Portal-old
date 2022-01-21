@@ -1,8 +1,23 @@
-import Vue from 'vue'
-import App from './App.vue'
-import router from './router'
+import Vue from 'vue';
+import App from './App.vue';
+import router from './router';
 
-Vue.config.productionTip = false
+import Unicon from 'vue-unicons/dist/vue-unicons-vue2.umd';
+import {
+  uniSetting, uniChartLine, uniUsersAlt, uniBox, uniAlignLeft, uniDesktop,
+  uniSignout, uniAngleDoubleUp, uniCamera, uniX, uniExclamation, uniLightbulb,
+  uniTrash, uniPen, uniPlus, uniCheck
+} from 'vue-unicons/dist/icons';
+
+Unicon.add([
+  uniSetting, uniChartLine, uniUsersAlt, uniBox, uniAlignLeft, uniDesktop,
+  uniSignout, uniAngleDoubleUp, uniCamera, uniX, uniExclamation, uniLightbulb,
+  uniTrash, uniPen, uniPlus, uniCheck
+]);
+
+Vue.config.productionTip = false;
+
+Vue.use(Unicon);
 
 new Vue({
   router,

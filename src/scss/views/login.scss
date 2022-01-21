@@ -1,0 +1,68 @@
+@import "../scss/colors.scss";
+
+#login-wrapper {
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+
+  #login {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+
+    #credentials {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 0 20px;
+      width: 75vw;
+
+      #credentials-title {
+        margin-bottom: 40px;
+        font-size: 24px;
+        font-weight: bold;
+      }
+
+      label, input, button {
+        width: 200px;
+        display: inline-block;
+      }
+
+      button {
+        width: 208px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        margin-top: 10px;
+      }
+
+      input {
+        margin-bottom: 20px;
+      }
+    }
+
+    #logo-pane {
+      width: 100%;
+      background: $color-main;
+      height: 100vh;
+      text-align: center;
+      align-items: center;
+      display: flex;
+      flex-direction: column;
+
+      #logo {
+        width: 150px;
+        margin: 20px 0;
+      }
+
+      #title, #version {
+        color: white;
+      }
+
+      #title {
+        font-size: 40px;
+        font-weight: bold;
+      }
+    }
+  }
+}

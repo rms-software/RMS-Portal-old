@@ -1,0 +1,40 @@
+@import "../../colors.scss";
+
+#profile {
+  .login-credentials {
+    .login-credential, .login-credentials-save {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      margin-bottom: 5px;
+
+      max-width: 400px;
+    }
+
+    .login-credentials-save button {
+      width: 200px;
+    }
+  }
+
+  .profile-settings {
+    display: grid;
+    grid-template-columns: 1fr 200px;
+
+    .textual-settings {
+      max-width: 400px;
+
+      .profile-setting {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        margin-bottom: 5px;
+      }
+    }
+  }
+
+  .login-credentials-save button {
+    width: 200px;
+  }
+
+  input {
+    width: 200px;
+  }
+}
