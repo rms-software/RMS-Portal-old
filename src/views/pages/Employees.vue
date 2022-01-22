@@ -60,6 +60,8 @@
       <unicon name="plus" fill="white"></unicon> New employee
     </button>
 
+    <br /><br />
+
     <Table>
       <template #head>
         <tr>

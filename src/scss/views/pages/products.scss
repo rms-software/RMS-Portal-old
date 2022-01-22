@@ -1,0 +1,21 @@
+.product-buttons {
+  text-align: center;
+
+  button {
+    width: 150px;
+    margin-top: 5px;
+  }
+}
+
+#products {
+  #products-search {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    margin-bottom: 20px;
+
+    input {
+      margin-right: 20px;
+      padding: 10px;
+    }
+  }
+}
