@@ -33,9 +33,8 @@ button {
   }
 
   &.text {
-    margin-bottom: 20px;
     color: white;
-    display: flex;
+    display: inline-flex;
     justify-content: center;
     align-items: center;
     padding-right: 12px !important;
@@ -57,13 +56,16 @@ button {
 
   &.add {
     background: $color-green;
+    color: white;
   }
 
   &.delete {
     background: $color-red;
+    color: white;
   }
 
   &.edit {
     background: $color-blue;
+    color: white;
   }
 }
