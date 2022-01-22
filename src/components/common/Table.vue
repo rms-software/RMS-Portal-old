@@ -39,6 +39,8 @@ table {
 
   tbody {
     td {
+      border-bottom: 1px solid #ddd;
+
       &:not(:first-child) {
         border-left: 1px solid #ddd;
       }
