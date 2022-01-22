@@ -1,5 +1,6 @@
 import ApiService from "./ApiService";
 
 export default {
-    getAllUsers: async () => await ApiService.get("users/all")
+    getAllUsers: async () => await ApiService.get("users/all"),
+    updateUser: async user => await ApiService.post("users/update", user)
 }

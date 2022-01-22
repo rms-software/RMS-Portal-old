@@ -4,3 +4,15 @@
   border-radius: 50%;
   object-fit: cover;
 }
+
+.user-form {
+  .user-field {
+    margin-bottom: 5px;
+    display: grid;
+    grid-template-columns: 150px auto;
+  }
+
+  .image-uploader {
+    width: 150px;
+  }
+}

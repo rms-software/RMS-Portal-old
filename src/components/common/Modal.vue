@@ -1,27 +1,42 @@
 <template>
-  <div class="outer-modal">
+  <div v-if="visible" class="outer-modal">
     <div class="inner-modal">
+
       <div class="modal-header">
         <div class="modal-title">
           Modal title
         </div>
-
-        <div class="modal-actions">
-          <button class="button delete">
-            <unicon name="x" fill="white" />
-          </button>
-
-          <button class="button add">
-            <unicon name="check" fill="white" />
-          </button>
-        </div>
       </div>
+
+      <div class="modal-body">
+        <slot></slot>
+      </div>
+
+      <div class="modal-actions">
+        <button class="button delete" @click="visible = false">
+          <unicon name="x" fill="white" />
+        </button>
+
+        <button class="button add" @click="$emit('submit')">
+          <unicon name="check" fill="white" />
+        </button>
+      </div>
+
     </div>
   </div>
 </template>
 
 <script>
 export default {
+  data: () => ({
+    visible: false
+  }),
+
+  methods: {
+    show() {
+      this.visible = !this.visible;
+    }
+  }
 }
 </script>
 
@@ -41,7 +56,7 @@ export default {
     width: 90vw;
     height: 90vh;
     top: 5vh;
-    left: 5vh;
+    left: 5vw;
     background: white;
 
     .modal-header {
@@ -56,9 +71,21 @@ export default {
         color: white;
         font-weight: bold;
       }
+    }
 
-      button {
-        justify-self: center;
+    .modal-body {
+      padding: 16px;
+      height: calc(90vh - 130px);
+      overflow-y: auto;
+    }
+
+    .modal-actions {
+      position: absolute;
+      bottom: 10px;
+      right: 0;
+
+      .button {
+        margin-right: 10px;
       }
     }
   }
