@@ -1,6 +1,9 @@
 <template>
   <div>
-    <Modal ref="employeeModal" @submit="updateEmployee">
+    <Modal ref="employeeModal"
+           @submit="updateEmployee"
+           :title="userFormData.id ? 'Update employee' : 'Create employee'">
+
       <div class="user-form">
         <ImageUploader class="image-uploader" v-model="userFormData.profilePicture" />
 
@@ -45,6 +48,14 @@
       </div>
     </Modal>
 
+    <Modal ref="deleteModal"
+           @submit="deleteCurrentEmployee"
+           title="Delete employee">
+      <div>
+        Are you sure you want to delete user '{{ userFormData.firstName }} {{ userFormData.lastName }}'
+      </div>
+    </Modal>
+
     <button class="btn add text" @click="createEmployee()">
       <unicon name="plus" fill="white"></unicon> New employee
     </button>
@@ -67,7 +78,7 @@
           <td>{{ user.email }}</td>
           <td>{{ user.address }}</td>
           <td>
-            <button class="btn delete spacing">
+            <button class="btn delete spacing" @click="deleteEmployee(user)">
               <unicon name="trash" fill="white" />
             </button>
 
@@ -130,7 +141,31 @@ export default {
 
       this.$refs.employeeModal.show();
       notifications.add("info", "Person added successfully");
-      this.loadEmployees();
+      await this.loadEmployees();
+    },
+
+    async deleteCurrentEmployee() {
+      await UsersService.deleteUser(this.userFormData.id);
+
+      this.$refs.deleteModal.show();
+      notifications.add("info", "Person deleted successfully");
+      await this.loadEmployees();
+    },
+
+    async deleteEmployee(user) {
+      this.userFormData = {
+        id: user.id,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        email: user.email,
+        address: user.address,
+        profilePicture: user.profilePicture,
+        username: null,
+        password: null,
+        confirmPassword: null
+      };
+
+      this.$refs.deleteModal.show();
     },
 
     async editEmployee(user) {

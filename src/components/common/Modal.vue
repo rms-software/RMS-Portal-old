@@ -4,7 +4,7 @@
 
       <div class="modal-header">
         <div class="modal-title">
-          Modal title
+          {{ title }}
         </div>
       </div>
 
@@ -28,6 +28,13 @@
 
 <script>
 export default {
+  props: {
+    title: {
+      type: String,
+      default: ""
+    }
+  },
+
   data: () => ({
     visible: false
   }),
