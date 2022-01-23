@@ -1,5 +1,8 @@
 <template>
   <div id="products">
+    <Modal ref="ProductDeletion" title="Deleting product" @submit="deleteProduct">
+      Are you sure you want to delete this product?
+    </Modal>
 
     <div id="products-search">
       <input type="text" placeholder="Search..." v-model="searchQuery" />
@@ -15,7 +18,7 @@
             <unicon name="pen" fill="white" /> Edit
           </button>
 
-          <button class="btn delete text">
+          <button class="btn delete text" @click="askDeleteProduct(product)">
             <unicon name="trash" fill="white" /> Delete
           </button>
         </div>
@@ -25,12 +28,18 @@
 </template>
 
 <script>
+
+// Import components
 import Card from "@/components/common/Card";
+import Modal from "@/components/common/Modal";
+
+// Import services
 import ProductService from "@/services/ProductService";
 
 export default {
   components: {
-    Card
+    Card,
+    Modal
   },
 
   computed: {
@@ -41,11 +50,12 @@ export default {
 
   data: () => ({
     searchQuery: "",
+    activeProduct: null,
     products: []
   }),
 
   async mounted() {
-    this.products = await ProductService.getAllProducts();
+    await this.loadproducts();
   },
 
   methods: {
@@ -57,6 +67,27 @@ export default {
     async editProduct(product) {
       await this.$router.push('/rms/products/' + product.id);
       this.$router.go(1);
+    },
+
+    askDeleteProduct(product) {
+      this.activeProduct = product
+      this.$refs.ProductDeletion.show();
+    },
+
+    async deleteProduct() {
+      try {
+        await ProductService.deleteProduct(this.activeProduct.id);
+        this.products = [];
+        this.activeProduct = null;
+        this.$refs.ProductDeletion.show();
+        await this.loadproducts();
+      } catch (e) {
+        notifications.add("error", "Something went wrong while trying to delete product");
+      }
+    },
+
+    async loadproducts() {
+      this.products = await ProductService.getAllProducts();
     }
   }
 }
