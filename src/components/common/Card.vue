@@ -52,7 +52,7 @@ export default {
     img {
       width: 150px;
       height: 150px;
-      object-fit: cover;
+      object-fit: contain;
     }
   }
 }

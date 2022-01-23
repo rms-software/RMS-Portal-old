@@ -52,6 +52,10 @@ export default {
   methods: {
     async submitForm() {
       await ProductService.updateProduct(this.form);
+
+      await this.$router.push('/rms/products');
+      this.$router.go(1);
+      notifications.add("info", "New product created");
     }
   }
 }

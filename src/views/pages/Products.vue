@@ -8,7 +8,7 @@
       </button>
     </div>
 
-    <div>
+    <div id="products-grid">
       <Card v-for="product in filteredProducts" :title="product.name" :image="product.image">
         <div class="product-buttons">
           <button class="btn edit text">
@@ -26,6 +26,7 @@
 
 <script>
 import Card from "@/components/common/Card";
+import ProductService from "@/services/ProductService";
 
 export default {
   components: {
@@ -42,6 +43,10 @@ export default {
     searchQuery: "",
     products: []
   }),
+
+  async mounted() {
+    this.products = await ProductService.getAllProducts();
+  },
 
   methods: {
     async createProduct() {
