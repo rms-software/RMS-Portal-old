@@ -15,6 +15,18 @@ const ApiService = {
         })).data;
     },
 
+    async delete(url) {
+        // Get the auth header value
+        const authHeaderValue = localStorage.getItem("authHeader");
+
+        // Do the request
+        return (await axios.delete(baseApiUrl+url, {
+            headers: {
+                'Authorization': `Basic ${authHeaderValue}`
+            }
+        })).data;
+    },
+
     async post(url, body) {
         // Get the auth header value
         const authHeaderValue = localStorage.getItem("authHeader");
