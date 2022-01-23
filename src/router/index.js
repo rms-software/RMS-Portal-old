@@ -33,6 +33,11 @@ const routes = [
     path: '/rms/products',
     name: 'Products',
     component: () => import('../views/pages/Products.vue')
+  },
+  {
+    path: '/rms/products/:productId',
+    name: 'Product',
+    component: () => import('../views/pages/products/Product.vue')
   }
 ];
 
