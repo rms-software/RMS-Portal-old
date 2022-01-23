@@ -11,7 +11,7 @@
     <div id="products-grid">
       <Card v-for="product in filteredProducts" :title="product.name" :image="product.image">
         <div class="product-buttons">
-          <button class="btn edit text">
+          <button class="btn edit text" @click="editProduct(product)">
             <unicon name="pen" fill="white" /> Edit
           </button>
 
@@ -51,6 +51,11 @@ export default {
   methods: {
     async createProduct() {
       await this.$router.push('/rms/products/new');
+      this.$router.go(1);
+    },
+
+    async editProduct(product) {
+      await this.$router.push('/rms/products/' + product.id);
       this.$router.go(1);
     }
   }

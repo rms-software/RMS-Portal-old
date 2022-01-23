@@ -49,6 +49,21 @@ export default {
     }
   }),
 
+  async mounted() {
+    // Get the product id from the URL
+    const productId = this.$route.params.productId;
+
+    // If the product id is set,
+    // then retrieve the info of the product
+    if (productId !== "new") {
+      try {
+        this.form = await ProductService.getProduct(productId);
+      } catch (e) {
+        notifications.add("error", "Something went wrong retrieving this product");
+      }
+    }
+  },
+
   methods: {
     async submitForm() {
       await ProductService.updateProduct(this.form);
