@@ -9,6 +9,7 @@
   "dependencies": {
     "axios": "^0.24.0",
     "core-js": "^3.6.5",
+    "marked": "^4.0.12",
     "vue": "^2.6.11",
     "vue-router": "^3.2.0",
     "vue-unicons": "^3.3.1"

@@ -58,10 +58,35 @@
       </Table>
     </Box>
 
-    <Box title="Content" collapsable>
+    <Box title="Content" collapsable v-if="pages.length > 0">
       <select v-model="currentEditingPage">
         <option v-for="page in pages" :value="page.id">{{ page.name }}</option>
       </select>
+
+      <br /><br />
+
+      Insert the content you want on the '{{ pages.find(page => page.id === currentEditingPage).name }}'
+      page here, you can use <a href="https://medium.com/@itsjzt/beginner-guide-to-markdown-229adce30074">Markdown formatting</a> to make things look a little better
+
+      <br /><br />
+
+      <textarea spellcheck="false" v-model="pages.find(page => page.id === currentEditingPage).markdownContent" style="resize: none; width: 100%; height: 300px;">
+
+      </textarea>
+
+      <br /><br />
+
+      <hr />
+
+      <br />
+
+      Here is a preview of how your text will look on your website:
+
+      <br /><br />
+
+      <div style="padding: 10px;background: #fff;" v-html="markdown2Html(pages.find(page => page.id === currentEditingPage).markdownContent)">
+
+      </div>
     </Box>
   </div>
 </template>
@@ -75,6 +100,9 @@ import Table from "@/components/common/Table";
 // Import services
 import ContentService from "@/services/ContentService";
 
+// Import libraries
+import { marked } from 'marked';
+
 export default {
   components: {
     Box,
@@ -87,7 +115,8 @@ export default {
   }),
 
   async mounted() {
-    this.pages = await ContentService.getAllPages();
+    this.pages = (await ContentService.getAllPages())
+        .sort((a, b) => a.order > b.order);
 
     this.currentEditingPage = this.pages[0]?.id;
   },
@@ -97,8 +126,15 @@ export default {
       this.pages.splice(pageIndex, 1);
     },
 
-    savePages() {
-      
+    async savePages() {
+      try {
+        await ContentService.savePages(this.pages);
+      } catch (e) {
+        notifications.add("error", "Something went wrong while saving");
+        return;
+      }
+
+      notifications.add("info", "Successfully saved pages");
     },
 
     reOrderPage(pageIndex, direction) {
@@ -114,17 +150,22 @@ export default {
       // Recalculate order
       this.pages.forEach((page, index) => {
         page.order = index;
-      })
+      });
     },
 
     addNewPage() {
       this.pages.push({
+        id: null,
         order: Math.max(...this.pages.map(page => page.order)),
         name: "",
         userMade: true,
         markdownContent: "",
         urlName: ""
-      })
+      });
+    },
+
+    markdown2Html(markdown) {
+      return marked(markdown);
     }
   }
 }
