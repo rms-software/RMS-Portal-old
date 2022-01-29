@@ -23,11 +23,6 @@ button {
   font-weight: bold;
   padding: 5px 40px;
 
-  &.main {
-    background: $color-main;
-    color: white;
-  }
-
   &.spacing {
     margin-right: 8px;
   }
@@ -50,8 +45,13 @@ button {
   }
 
   // Action buttons
-  &.delete, &.edit, &.add {
+  &.delete, &.edit, &.add, &.main {
     padding: 5px 8px;
+  }
+
+  &.main {
+    background: $color-main;
+    color: white;
   }
 
   &.add {

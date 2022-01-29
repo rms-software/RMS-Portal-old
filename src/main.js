@@ -6,13 +6,15 @@ import Unicon from 'vue-unicons/dist/vue-unicons-vue2.umd';
 import {
   uniSetting, uniChartLine, uniUsersAlt, uniBox, uniAlignLeft, uniDesktop,
   uniSignout, uniAngleDoubleUp, uniCamera, uniX, uniExclamation, uniLightbulb,
-  uniTrash, uniPen, uniPlus, uniCheck
+  uniTrash, uniPen, uniPlus, uniCheck, uniFileAlt, uniAngleUp, uniAngleDown,
+  uniSave
 } from 'vue-unicons/dist/icons';
 
 Unicon.add([
   uniSetting, uniChartLine, uniUsersAlt, uniBox, uniAlignLeft, uniDesktop,
   uniSignout, uniAngleDoubleUp, uniCamera, uniX, uniExclamation, uniLightbulb,
-  uniTrash, uniPen, uniPlus, uniCheck
+  uniTrash, uniPen, uniPlus, uniCheck, uniFileAlt, uniAngleUp, uniAngleDown,
+  uniSave
 ]);
 
 Vue.config.productionTip = false;

@@ -32,6 +32,11 @@
       <router-link to="/rms/products">Products</router-link>
     </div>
 
+    <div class="nav-item">
+      <unicon name="file-alt" fill="white" />
+      <router-link to="/rms/content">Content</router-link>
+    </div>
+
 
 
 <!--    <div class="nav-item">-->
