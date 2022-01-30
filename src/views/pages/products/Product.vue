@@ -19,7 +19,48 @@
 
     <Box title="Pricing" collapsable>
       <div id="product-pricing-info">
+        <div>
+          Base price: &nbsp;&nbsp;&nbsp; <input type="number" placeholder="€ 0.00" />
+        </div>
 
+        <br />
+        <hr style="border: 1px solid #ccc" />
+        <br />
+
+        <div>
+          <div style="display: flex; align-items: center;">
+            <b>Yes / No options</b> &nbsp;&nbsp;&nbsp;
+
+            <button class="btn add text">
+              <unicon name="plus" fill="white"></unicon>
+              Add
+            </button>
+          </div>
+
+          <br />
+
+          <Table>
+            <template #head>
+              <tr>
+                <th>Name</th>
+                <th>Additional price</th>
+                <th></th>
+              </tr>
+            </template>
+
+            <template #body>
+              <tr>
+                <th><input type="text" /></th>
+                <th><input type="number" /></th>
+                <th>
+                  <button class="btn delete">
+                    <unicon name="trash" fill="white"></unicon>
+                  </button>
+                </th>
+              </tr>
+            </template>
+          </Table>
+        </div>
       </div>
     </Box>
 
@@ -31,12 +72,14 @@
 
 <script>
 import Box from "@/components/common/Box";
+import Table from "@/components/common/Table";
 import ImageUploader from "@/components/common/ImageUploader";
 import ProductService from "@/services/ProductService";
 
 export default {
   components: {
     Box,
+    Table,
     ImageUploader
   },
 
