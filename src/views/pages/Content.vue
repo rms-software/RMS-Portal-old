@@ -59,9 +59,17 @@
     </Box>
 
     <Box title="Content" collapsable v-if="pages.length > 0">
-      <select v-model="currentEditingPage">
-        <option v-for="page in pages" :value="page.id">{{ page.name }}</option>
-      </select>
+      <div style="display: flex;">
+        <button class="btn add text" @click="savePages">
+          <unicon name="save" fill="white"></unicon>
+          Save
+        </button> &nbsp; &nbsp;
+
+        <select v-model="currentEditingPage" style="width: 200px">
+          <option v-for="page in pages" :value="page.id">{{ page.name }}</option>
+        </select>
+      </div>
+
 
       <br /><br />
 

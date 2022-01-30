@@ -22,20 +22,26 @@
 <!--      <router-link to="/rms/orders">Orders</router-link>-->
 <!--    </div>-->
 
-    <div class="nav-item">
-      <unicon name="users-alt" fill="white" />
-      <router-link to="/rms/employees">Employees</router-link>
-    </div>
+    <router-link to="/rms/employees">
+      <div class="nav-item">
+        <unicon name="users-alt" fill="white" />
+        Employees
+      </div>
+    </router-link>
 
-    <div class="nav-item">
-      <unicon name="align-left" fill="white" />
-      <router-link to="/rms/products">Products</router-link>
-    </div>
+    <router-link to="/rms/products">
+      <div class="nav-item">
+        <unicon name="align-left" fill="white" />
+        Products
+      </div>
+    </router-link>
 
-    <div class="nav-item">
-      <unicon name="file-alt" fill="white" />
-      <router-link to="/rms/content">Content</router-link>
-    </div>
+    <router-link to="/rms/content">
+      <div class="nav-item">
+        <unicon name="file-alt" fill="white" />
+        Content
+      </div>
+    </router-link>
 
 
 
@@ -48,11 +54,12 @@
 <!--      <unicon name="setting" fill="white" />-->
 <!--      <router-link to="/rms/settings">Settings</router-link>-->
 <!--    </div>-->
-
-    <div class="nav-item bottom" @click="bus.$emit('logOut')">
-      <unicon name="signout" fill="white" />
-      <span class="router-link">Logout</span>
-    </div>
+    <span class="router-link bottom">
+      <div class="nav-item" @click="bus.$emit('logOut')">
+        <unicon name="signout" fill="white" />
+        Logout
+      </div>
+    </span>
   </div>
 </template>
 
