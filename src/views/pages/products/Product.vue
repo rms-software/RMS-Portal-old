@@ -31,7 +31,7 @@
           <div style="display: flex; align-items: center;">
             <b>Yes / No options</b> &nbsp;&nbsp;&nbsp;
 
-            <button class="btn add text">
+            <button class="btn add text" @click="addBinaryProductOption">
               <unicon name="plus" fill="white"></unicon>
               Add
             </button>
@@ -49,11 +49,11 @@
             </template>
 
             <template #body>
-              <tr>
-                <th><input type="text" /></th>
-                <th><input type="number" /></th>
+              <tr v-for="(option, index) in productOptions.binaryProductOptions">
+                <th><input type="text" v-model="option.name" /></th>
+                <th><input type="number" v-model="option.additionalPrice" /></th>
                 <th>
-                  <button class="btn delete">
+                  <button class="btn delete" @click="removeBinaryProductOption(index)">
                     <unicon name="trash" fill="white"></unicon>
                   </button>
                 </th>
@@ -71,9 +71,13 @@
 </template>
 
 <script>
+
+// Import components
 import Box from "@/components/common/Box";
 import Table from "@/components/common/Table";
 import ImageUploader from "@/components/common/ImageUploader";
+
+// Import services
 import ProductService from "@/services/ProductService";
 
 export default {
@@ -89,7 +93,9 @@ export default {
       name: "",
       description: "",
       image: ""
-    }
+    },
+
+    productOptions: []
   }),
 
   async mounted() {
@@ -101,6 +107,7 @@ export default {
     if (productId !== "new") {
       try {
         this.form = await ProductService.getProduct(productId);
+        this.productOptions = await ProductService.getAllProductOptions(productId);
       } catch (e) {
         notifications.add("error", "Something went wrong retrieving this product");
       }
@@ -114,6 +121,18 @@ export default {
       await this.$router.push('/rms/products');
       this.$router.go(1);
       notifications.add("info", "New product created");
+    },
+
+    addBinaryProductOption() {
+      this.productOptions.binaryProductOptions.push({
+        id: null,
+        name: "",
+        additionalPrice: 0.00
+      });
+    },
+
+    removeBinaryProductOption(optionIndex) {
+      this.productOptions.binaryProductOptions.splice(optionIndex, 1);
     }
   }
 }
