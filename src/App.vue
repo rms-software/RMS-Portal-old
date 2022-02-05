@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <Debugger />
     <Notification />
 
     <div id="nav-normal" v-if="$route.name === 'Login'">
@@ -25,7 +26,7 @@
 // Import components
 import TheHeader from "@/components/common/TheHeader";
 import TheNavigator from "@/components/common/TheNavigator";
-
+import Debugger from "@/components/common/Debugger";
 import Notification from "@/components/common/Notification";
 
 // Import services
@@ -38,7 +39,8 @@ export default {
   components: {
     TheHeader,
     TheNavigator,
-    Notification
+    Notification,
+    Debugger
   },
 
   data: () => ({
