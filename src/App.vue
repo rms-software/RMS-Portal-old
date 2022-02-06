@@ -14,7 +14,7 @@
         <TheNavigator :generalInfo="generalInfo" />
 
         <div id="page-content">
-          <div id="page-name">{{ $route.name }}</div>
+          <div id="page-name" v-if="$route.name !== 'Dashboard'">{{ $route.name }}</div>
           <router-view/>
         </div>
       </div>

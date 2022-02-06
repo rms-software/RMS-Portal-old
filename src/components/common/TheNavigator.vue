@@ -12,10 +12,12 @@
       </div>
     </router-link>
 
-<!--    <div class="nav-item">-->
-<!--      <unicon name="desktop" fill="white" />-->
-<!--      <router-link to="/rms/dashboard">Dashboard</router-link>-->
-<!--    </div>-->
+    <router-link to="/rms/dashboard">
+      <div class="nav-item">
+        <unicon name="desktop" fill="white" />
+        Dashboard
+      </div>
+    </router-link>
 
 <!--    <div class="nav-item">-->
 <!--      <unicon name="box" fill="white" />-->
