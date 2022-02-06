@@ -1,5 +1,5 @@
 <template>
-  <div id="settings">
+  <div id="settings" v-if="loaded">
     <Box title="Company settings" collapsable>
       <div class="settings-list">
         <span>
@@ -36,14 +36,16 @@ export default {
   },
 
   data: () => ({
+    loaded: false,
     form: {
       companyName: "",
       companyColor: ""
     }
   }),
 
-  mounted() {
-    this.form.companyColor = this.$refs.colorPicker.value;
+  async mounted() {
+    this.form = await SettingsService.getSettings();
+    this.loaded = true;
   },
 
   methods: {
@@ -51,9 +53,9 @@ export default {
       try {
         await SettingsService.saveSettings(this.form);
         EventBus.$emit("refreshGeneralInfo");
-        notifications.add("info", "")
+        notifications.add("info", "Settings saved successfully");
       } catch (e) {
-
+        notifications.add("error", "Something went wrong trying to save company settings");
       }
     }
   }
