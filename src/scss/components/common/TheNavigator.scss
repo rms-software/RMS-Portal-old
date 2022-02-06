@@ -1,7 +1,7 @@
 @import "../../colors.scss";
 
 #the-navigator {
-  background: $color-main;
+  background: var(--main-theme);
   width: 100%;
   height: calc(100vh - 55px);
   display: flex;
@@ -22,7 +22,7 @@
 
     &:hover {
       opacity: 0.6;
-      background: lighten($color-main, 6);
+      background: var(--main-theme-light);
       cursor: pointer;
     }
 
@@ -47,7 +47,7 @@
 
     &:hover {
       opacity: 0.6;
-      background: lighten($color-main, 6);
+      background: var(--main-theme-light);
       cursor: pointer;
     }
 

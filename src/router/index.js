@@ -43,6 +43,11 @@ const routes = [
     path: '/rms/content',
     name: 'Content',
     component: () => import('../views/pages/Content.vue')
+  },
+  {
+    path: '/rms/settings',
+    name: 'Content',
+    component: () => import('../views/pages/Settings.vue')
   }
 ];
 

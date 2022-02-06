@@ -1,14 +1,14 @@
 @import "../../colors.scss";
 
 #the-header {
-  background: lighten($color-main, 10);
+  background: var(--main-theme-light);
   display: flex;
   align-items: center;
   height: 55px;
 
   #logo-wrapper {
     width: 200px;
-    background: lighten($color-main, 10);
+    background: var(--main-theme-light);
     text-align: center;
     height: 55px;
     display: flex;

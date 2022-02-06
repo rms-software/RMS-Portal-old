@@ -48,12 +48,15 @@
 <!--      <router-link to="/rms/stats">Statistics</router-link>-->
 <!--    </div>-->
 
-<!--    <div class="nav-item bottom">-->
-<!--      <unicon name="setting" fill="white" />-->
-<!--      <router-link to="/rms/settings">Settings</router-link>-->
-<!--    </div>-->
 
-    <span class="router-link bottom">
+    <router-link to="/rms/settings" class="bottom">
+      <div class="nav-item">
+        <unicon name="setting" fill="white" />
+        Settings
+      </div>
+    </router-link>
+
+    <span class="router-link">
       <div class="nav-item" @click="bus.$emit('logOut')">
         <unicon name="signout" fill="white" />
         Logout

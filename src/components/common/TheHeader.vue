@@ -5,7 +5,7 @@
     </div>
 
     <div id="title-space">
-      RMS
+      RMS &nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp; {{ generalInfo.companyName }}
     </div>
   </div>
 </template>

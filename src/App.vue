@@ -68,11 +68,40 @@ export default {
     async refreshGeneralInfo() {
       try {
         this.generalInfo = await GeneralService.getGeneralInfo();
+
+        // Set css color scheme
+        document.querySelector(':root').style.setProperty("--main-theme", this.generalInfo.companyColor)
+        console.log(this.shadeColor(this.generalInfo.companyColor, 0.5))
+        console.log(this.generalInfo.companyColor)
+        document.querySelector(':root').style.setProperty("--main-theme-light", this.shadeColor(this.generalInfo.companyColor, 0.85))
+
         this.loaded = true;
       } catch(e) {
         await this.$router.push('/login');
         this.$router.go(1);
       }
+    },
+
+    shadeColor(color, decimal) {
+      const base = color.startsWith('#') ? 1 : 0;
+
+      let r = parseInt(color.substring(base, 3), 16);
+      let g = parseInt(color.substring(base + 2, 5), 16);
+      let b = parseInt(color.substring(base + 4, 7), 16);
+
+      r = Math.round(r / decimal);
+      g = Math.round(g / decimal);
+      b = Math.round(b / decimal);
+
+      r = (r < 255)? r : 255;
+      g = (g < 255)? g : 255;
+      b = (b < 255)? b : 255;
+
+      const rr = ((r.toString(16).length === 1)? `0${r.toString(16)}` : r.toString(16));
+      const gg = ((g.toString(16).length === 1)? `0${g.toString(16)}` : g.toString(16));
+      const bb = ((b.toString(16).length === 1)? `0${b.toString(16)}` : b.toString(16));
+
+      return `#${rr}${gg}${bb}`;
     }
   }
 }
