@@ -20,9 +20,9 @@
     <Box title="Pricing" collapsable>
       <div id="product-pricing-info">
         <div>
-          Base price: &nbsp;&nbsp;&nbsp; <input type="number" placeholder="€ 0.00" />
+          Base price: &nbsp;&nbsp;&nbsp; <input type="number" v-model="form.basePrice" placeholder="€ 0.00" />
         </div>
-
+        <!--
         <br />
         <hr style="border: 1px solid #ccc" />
         <br />
@@ -61,6 +61,7 @@
             </template>
           </Table>
         </div>
+        -->
       </div>
     </Box>
 
@@ -92,7 +93,8 @@ export default {
       id: null,
       name: "",
       description: "",
-      image: ""
+      image: "",
+      basePrice: 0
     },
 
     productOptions: []
