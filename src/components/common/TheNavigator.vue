@@ -19,15 +19,17 @@
       </div>
     </router-link>
 
-<!--    <div class="nav-item">-->
-<!--      <unicon name="box" fill="white" />-->
-<!--      <router-link to="/rms/orders">Orders</router-link>-->
-<!--    </div>-->
-
     <router-link to="/rms/employees">
       <div class="nav-item">
         <unicon name="users-alt" fill="white" />
         Employees
+      </div>
+    </router-link>
+
+    <router-link to="/rms/orders">
+      <div class="nav-item">
+        <unicon name="box" fill="white" />
+        Orders
       </div>
     </router-link>
 

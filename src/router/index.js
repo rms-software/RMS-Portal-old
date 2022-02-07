@@ -48,6 +48,11 @@ const routes = [
     path: '/rms/settings',
     name: 'Settings',
     component: () => import('../views/pages/Settings.vue')
+  },
+  {
+    path: '/rms/orders',
+    name: 'Orders',
+    component: () => import('../views/pages/Orders.vue')
   }
 ];
 

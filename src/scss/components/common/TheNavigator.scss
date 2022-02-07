@@ -6,6 +6,7 @@
   height: calc(100vh - 55px);
   display: flex;
   flex-direction: column;
+  overflow-y: auto;
 
   a, .router-link {
     height: 60px;
