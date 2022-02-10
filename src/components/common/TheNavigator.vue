@@ -14,35 +14,35 @@
 
     <router-link to="/rms/dashboard">
       <div class="nav-item">
-        <unicon name="desktop" fill="white" />
+        <unicon name="desktop" :fill="foregroundColor" />
         Dashboard
       </div>
     </router-link>
 
     <router-link to="/rms/employees">
       <div class="nav-item">
-        <unicon name="users-alt" fill="white" />
+        <unicon name="users-alt" :fill="foregroundColor" />
         Employees
       </div>
     </router-link>
 
     <router-link to="/rms/orders">
       <div class="nav-item">
-        <unicon name="box" fill="white" />
+        <unicon name="box" :fill="foregroundColor" />
         Orders
       </div>
     </router-link>
 
     <router-link to="/rms/products">
       <div class="nav-item">
-        <unicon name="align-left" fill="white" />
+        <unicon name="align-left" :fill="foregroundColor" />
         Products
       </div>
     </router-link>
 
     <router-link to="/rms/content">
       <div class="nav-item">
-        <unicon name="file-alt" fill="white" />
+        <unicon name="file-alt" :fill="foregroundColor" />
         Content
       </div>
     </router-link>
@@ -55,14 +55,14 @@
 
     <router-link to="/rms/settings" class="bottom">
       <div class="nav-item">
-        <unicon name="setting" fill="white" />
+        <unicon name="setting" :fill="foregroundColor" />
         Settings
       </div>
     </router-link>
 
     <span class="router-link">
       <div class="nav-item" @click="bus.$emit('logOut')">
-        <unicon name="signout" fill="white" />
+        <unicon name="signout" :fill="foregroundColor" />
         Logout
       </div>
     </span>
@@ -77,12 +77,13 @@ export default {
     generalInfo: {
       type: Object,
       required: true
-    }
-  },
+    },
 
-  data: () => ({
-    bus
-  })
+    foregroundColor: {
+      type: String,
+      required: true
+    }
+  }
 }
 </script>
 

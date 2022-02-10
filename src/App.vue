@@ -11,7 +11,7 @@
       <TheHeader :generalInfo="generalInfo" />
 
       <div id="main-content">
-        <TheNavigator :generalInfo="generalInfo" />
+        <TheNavigator :generalInfo="generalInfo" :foreground-color="foregroundColor" />
 
         <div id="page-content">
           <div id="page-name" v-if="$route.name !== 'Dashboard'">{{ $route.name }}</div>
@@ -45,7 +45,8 @@ export default {
 
   data: () => ({
     loaded: false,
-    generalInfo: {}
+    generalInfo: {},
+    foregroundColor: ""
   }),
 
   created() {
@@ -70,16 +71,27 @@ export default {
         this.generalInfo = await GeneralService.getGeneralInfo();
 
         // Set css color scheme
-        document.querySelector(':root').style.setProperty("--main-theme", this.generalInfo.companyColor)
-        console.log(this.shadeColor(this.generalInfo.companyColor, 0.5))
-        console.log(this.generalInfo.companyColor)
-        document.querySelector(':root').style.setProperty("--main-theme-light", this.shadeColor(this.generalInfo.companyColor, 0.85))
+        this.foregroundColor = this.getContrastYIQ(this.generalInfo.companyColor);
+        document.querySelector(':root').style.setProperty("--main-theme", this.generalInfo.companyColor);
+        document.querySelector(':root').style.setProperty("--main-theme-light", this.shadeColor(this.generalInfo.companyColor, 0.85));
+        document.querySelector(':root').style.setProperty("--main-theme-foreground", this.foregroundColor);
 
         this.loaded = true;
       } catch(e) {
         await this.$router.push('/login');
         this.$router.go(1);
       }
+    },
+
+    getContrastYIQ(hexcolor){
+      hexcolor = hexcolor.replace("#", "");
+
+      const r = parseInt(hexcolor.substr(0,2),16);
+      const g = parseInt(hexcolor.substr(2,2),16);
+      const b = parseInt(hexcolor.substr(4,2),16);
+      const yiq = ((r*299)+(g*587)+(b*114))/1000;
+
+      return (yiq >= 128) ? 'black' : 'white';
     },
 
     shadeColor(color, decimal) {

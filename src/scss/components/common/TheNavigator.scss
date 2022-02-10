@@ -32,7 +32,7 @@
     }
 
     .nav-item {
-      color: white;
+      color: var(--main-theme-foreground);
       display: flex;
       line-height: 60px;
       align-items: center;
@@ -53,12 +53,12 @@
     }
 
     #username {
-      color: white;
+      color: var(--main-theme-foreground);
       font-weight: bold;
     }
 
     #role {
-      color: #ddd;
+      color: var(--main-theme-foreground);
       margin-top: -6px;
     }
 
