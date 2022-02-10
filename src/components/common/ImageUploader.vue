@@ -1,6 +1,6 @@
 <template>
   <div>
-    <input type="file" id="actual-btn" ref="image-uploader" hidden @change="setImage" />
+    <input type="file" id="actual-btn" ref="image-uploader" hidden />
 
     <!--our custom file upload button-->
     <div @click="pickImage" class='image-picker-overlay box' :style="`background: url(${value}) no-repeat;`">
@@ -12,27 +12,33 @@
 <script>
 // https://dev.to/faddalibrahim/how-to-create-a-custom-file-upload-button-using-html-css-and-javascript-1c03
 
+// Import libraries
+import Compress from "compress.js"
+
+const compress = new Compress();
+
 export default {
   data: () => ({
   }),
 
   props: ['value'],
 
+  mounted() {
+    const that = this;
+
+    compress.attach('#actual-btn', {
+      size: 0.051,
+      quality: .75
+    }).then(data => {
+      const file = data[0]
+      that.$emit('input', file.prefix + file.data);
+      console.log(file.data.length)
+    })
+  },
+
   methods: {
     pickImage() {
       this.$refs['image-uploader'].click();
-    },
-
-    setImage() {
-      const fileReader  = new FileReader();
-      const file = this.$refs['image-uploader'].files[0];
-      const that = this;
-
-      fileReader.onload = event => {
-        that.$emit('input', event.target.result);
-      };
-
-      fileReader.readAsDataURL(file);
     }
   }
 }
