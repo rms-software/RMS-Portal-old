@@ -66,7 +66,7 @@
     </Box>
 
     <button class="btn add text" @click="submitForm">
-      <unicon name="plus" fill="white"></unicon> {{ form.id ? 'Edit' : 'Add' }} product
+      <unicon :name="form.id ? 'save' : 'plus'" fill="white"></unicon> {{ form.id ? 'Edit' : 'Add' }} product
     </button>
   </div>
 </template>
