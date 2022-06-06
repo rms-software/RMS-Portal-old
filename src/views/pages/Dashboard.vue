@@ -4,7 +4,7 @@
       <img src="@/assets/logo-dark.png" />
     </div>
 
-    <div id="dashboard-stats">
+    <!-- <div id="dashboard-stats">
       <div class="stat-card">
         <div class="stat-name">Visits</div>
 
@@ -30,7 +30,7 @@
           </span>
         </div>
       </div>
-    </div>
+    </div> -->
   </div>
 </template>
 

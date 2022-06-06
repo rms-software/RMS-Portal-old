@@ -40,12 +40,12 @@
       </div>
     </router-link>
 
-    <router-link to="/rms/content">
+    <!-- <router-link to="/rms/content">
       <div class="nav-item">
         <unicon name="file-alt" :fill="foregroundColor" />
         Content
       </div>
-    </router-link>
+    </router-link> -->
 
 <!--    <div class="nav-item">-->
 <!--      <unicon name="chart-line" fill="white" />-->

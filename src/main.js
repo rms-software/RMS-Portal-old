@@ -7,14 +7,14 @@ import {
   uniSetting, uniChartLine, uniUsersAlt, uniBox, uniAlignLeft, uniDesktop,
   uniSignout, uniAngleDoubleUp, uniCamera, uniX, uniExclamation, uniLightbulb,
   uniTrash, uniPen, uniPlus, uniCheck, uniFileAlt, uniAngleUp, uniAngleDown,
-  uniSave, uniBill, uniGlobe
+  uniSave, uniBill, uniGlobe, uniEye
 } from 'vue-unicons/dist/icons';
 
 Unicon.add([
   uniSetting, uniChartLine, uniUsersAlt, uniBox, uniAlignLeft, uniDesktop,
   uniSignout, uniAngleDoubleUp, uniCamera, uniX, uniExclamation, uniLightbulb,
   uniTrash, uniPen, uniPlus, uniCheck, uniFileAlt, uniAngleUp, uniAngleDown,
-  uniSave, uniBill, uniGlobe
+  uniSave, uniBill, uniGlobe, uniEye
 ]);
 
 Vue.config.productionTip = false;
