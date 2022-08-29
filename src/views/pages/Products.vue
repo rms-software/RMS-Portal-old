@@ -12,7 +12,7 @@
     </div>
 
     <div id="products-grid">
-      <Card v-for="product in filteredProducts" :title="product.name" :image="product.image">
+      <Card v-for="product in filteredProducts" :title="product.name" :image="product.image" :key="product.id">
         <div class="product-buttons">
           <button class="btn edit text" @click="editProduct(product)">
             <unicon name="pen" fill="white" /> Edit

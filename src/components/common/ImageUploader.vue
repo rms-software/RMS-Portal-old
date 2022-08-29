@@ -1,9 +1,9 @@
 <template>
   <div>
-    <input type="file" id="actual-btn" ref="image-uploader" hidden />
+    <input type="file" id="actual-btn" ref="image-uploader" hidden @change="changedFile()" accept="image/png, image/jpeg" />
 
     <!--our custom file upload button-->
-    <div @click="pickImage" class='image-picker-overlay box' :style="`background: url(${value}) no-repeat;`">
+    <div @click="pickImage" class='image-picker-overlay box' :style="`background: url(${imageData}) no-repeat;`">
       <unicon name="camera" class='content' />
     </div>
   </div>
@@ -18,27 +18,38 @@ import Compress from "compress.js"
 const compress = new Compress();
 
 export default {
-  data: () => ({
-  }),
-
   props: ['value'],
 
-  mounted() {
-    const that = this;
+  data: () => ({
+    imageData: null,
+  }),
 
-    compress.attach('#actual-btn', {
-      size: 0.051,
-      quality: .75
-    }).then(data => {
-      const file = data[0]
-      that.$emit('input', file.prefix + file.data);
-      console.log(file.data.length)
-    })
+  mounted() {
+    console.log(this.value)
+    const _this = this;
   },
 
   methods: {
+    changedFile() {
+      const file = (this.$refs['image-uploader'].files[0])
+      
+      this.imageData = window.URL.createObjectURL(file);
+      this.$emit('input', file);
+      console.log(this.imageData)
+    },
+
     pickImage() {
       this.$refs['image-uploader'].click();
+    }
+  },
+
+  watch: {
+    'value': function() {
+      if (this.value instanceof File) {
+        this.imageData = window.URL.createObjectURL(this.value);
+      } else {
+        this.imageData = this.value;
+      }
     }
   }
 }

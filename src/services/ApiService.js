@@ -28,6 +28,26 @@ const ApiService = {
             }
         })).data;
     },
+    
+    async postFD(url, formData) {
+        // Get the auth header value
+        const authHeaderValue = localStorage.getItem("authHeader");
+
+        // Do the request
+        const response = (await axios.post(baseApiUrl+url, formData, {
+            headers: {
+                'Authorization': `Basic ${authHeaderValue}`,
+                "Content-Type": "multipart/form-data"
+            },
+
+            validateStatus: () => true
+        }));
+
+        if (response.status !== 200)
+            notifications.add("error", response.data.message);
+        else
+            return response.data
+    },
 
     async post(url, body) {
         // Get the auth header value
