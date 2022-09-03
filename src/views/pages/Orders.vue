@@ -18,7 +18,7 @@
           <td>{{ order.customerData["name"] }}</td>
           <td>{{ orderStatuses[order.status] }}</td>
           <td>{{ formatDate(order.placedDate) }}</td>
-          <td>€ 15.00</td>
+          <td>€ {{ totalPrice(order.orderItems) }}</td>
           <td>
             <button
               class="btn txt-icon main spacing"
