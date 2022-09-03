@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <Debugger />
+    <!-- <Debugger /> -->
     <Notification />
 
     <div id="nav-normal" v-if="$route.name === 'Login'">

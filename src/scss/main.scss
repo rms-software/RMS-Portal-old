@@ -69,3 +69,12 @@ button {
     color: white;
   }
 }
+
+button.txt-icon {
+  display: inline-flex;
+  align-items: center;
+
+  .unicon {
+    margin-right: 10px;
+  }
+}
