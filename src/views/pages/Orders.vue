@@ -32,12 +32,17 @@
       </template>
     </Table>
 
-    <Modal title="Order" ref="orderPopup">
+    <Modal :title="'Order - ' + orderStatuses[activeOrder.status]" ref="orderPopup">
       <h1>
         Order for {{ activeOrder.customerData["name"] }} ({{
           activeOrder.customerData["email"]
         }})
       </h1>
+
+      <div>
+        <button class="btn delete big" @click="cancelOrder()">Cancel</button> &nbsp;
+        <button class="btn main big" @click="finishOrder()">Finish</button>
+      </div>
 
       <h4 style="margin-bottom: 5px">Data:</h4>
 
@@ -113,7 +118,7 @@ export default {
     orders: [],
     products: [],
     orderStatuses: {
-      10: "Confirmed",
+      10: "Waiting",
       30: "Delivered",
       40: "Cancled",
     },
@@ -129,6 +134,20 @@ export default {
   },
 
   methods: {
+    async cancelOrder() {
+      const _this = this;
+      confirm("Are you sure you want to cancle this order?", async () => {
+        await OrderService.cancelOrder(_this.activeOrder.id);
+      });
+    },
+
+    async finishOrder() {
+      const _this = this;
+      confirm("Are you sure you want to finish this order?", async () => {
+        await OrderService.finishOrder(_this.activeOrder.id);
+      });
+    },
+
     formatDate(date) {
       date = new Date(date);
 

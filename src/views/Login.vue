@@ -4,7 +4,7 @@
       <div id="logo-pane">
         <img id="logo" src="@/assets/logo.png" alt="RMS logo" />
         <div id="title">RMS</div>
-        <div id="version">V1.0.0</div>
+        <div id="version">V1.1.1</div>
       </div>
 
       <div id="credentials">

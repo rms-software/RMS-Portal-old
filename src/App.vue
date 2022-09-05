@@ -3,6 +3,9 @@
     <!-- <Debugger /> -->
     <Notification />
 
+    <Confirm />
+    <Prompt />
+
     <div id="nav-normal" v-if="$route.name === 'Login'">
       <router-view/>
     </div>
@@ -28,6 +31,8 @@ import TheHeader from "@/components/common/TheHeader";
 import TheNavigator from "@/components/common/TheNavigator";
 import Debugger from "@/components/common/Debugger";
 import Notification from "@/components/common/Notification";
+import Confirm from "@/components/common/Confirm";
+import Prompt from "@/components/common/Prompt";
 
 // Import services
 import GeneralService from "@/services/GeneralService";
@@ -40,7 +45,9 @@ export default {
     TheHeader,
     TheNavigator,
     Notification,
-    Debugger
+    Debugger,
+    Confirm,
+    Prompt
   },
 
   data: () => ({

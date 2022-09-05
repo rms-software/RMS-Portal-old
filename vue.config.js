@@ -1,5 +1,5 @@
 module.exports = {
-    publicPath: process.env.NODE_ENV === 'production' ? '/Portal/' : '/',
+    publicPath: process.env.NODE_ENV === 'production' ? '/' : '/',
     devServer: {
       disableHostCheck: true
     }
