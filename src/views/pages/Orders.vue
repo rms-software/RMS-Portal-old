@@ -39,7 +39,7 @@
         }})
       </h1>
 
-      <div>
+      <div v-if="orderStatuses[activeOrder.status] === 'Waiting'">
         <button class="btn delete big" @click="cancelOrder()">Cancel</button> &nbsp;
         <button class="btn main big" @click="finishOrder()">Finish</button>
       </div>
@@ -129,15 +129,23 @@ export default {
   }),
 
   async mounted() {
-    this.products = await ProductService.getAllProducts();
-    this.orders = await OrderService.getAllOrders();
+    await this.loadItems();
   },
 
   methods: {
+    async loadItems() {
+      this.orders = [];
+      this.products = [];
+      this.products = await ProductService.getAllProducts();
+      this.orders = await OrderService.getAllOrders();
+    },
+
     async cancelOrder() {
       const _this = this;
       confirm("Are you sure you want to cancle this order?", async () => {
         await OrderService.cancelOrder(_this.activeOrder.id);
+        _this.$refs.orderPopup.show();
+        await this.loadItems();
       });
     },
 
@@ -145,6 +153,8 @@ export default {
       const _this = this;
       confirm("Are you sure you want to finish this order?", async () => {
         await OrderService.finishOrder(_this.activeOrder.id);
+        _this.$refs.orderPopup.show();
+        await this.loadItems();
       });
     },
 
