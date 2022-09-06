@@ -1,5 +1,15 @@
 <template>
   <div>
+    <button
+      class="btn txt-icon main spacing"
+      @click="printOrders()"
+    >
+      <unicon name="print" fill="white" />
+      Print
+    </button>
+
+    <br /><br />
+
     <Table>
       <template #head>
         <tr>
@@ -107,6 +117,7 @@ import Modal from "@/components/common/Modal";
 // Import services
 import OrderService from "@/services/OrderService.js";
 import ProductService from "@/services/ProductService.js";
+import OrderPrintingService from "@/services/OrderPrintingService.js"
 
 export default {
   components: {
@@ -133,6 +144,10 @@ export default {
   },
 
   methods: {
+    printOrders() {
+      OrderPrintingService.printOrders(this.orders, this.products);
+    },
+
     async loadItems() {
       this.orders = [];
       this.products = [];

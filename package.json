@@ -1,6 +1,6 @@
 {
   "name": "rms",
-  "version": "0.1.0",
+  "version": "1.2.0",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
@@ -10,6 +10,8 @@
     "axios": "^0.24.0",
     "compress.js": "^1.2.2",
     "core-js": "^3.6.5",
+    "jspdf": "^2.5.1",
+    "jspdf-autotable": "^3.5.25",
     "marked": "^4.0.12",
     "vue": "^2.6.11",
     "vue-router": "^3.2.0",
