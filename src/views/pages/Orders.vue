@@ -8,6 +8,13 @@
       Print
     </button>
 
+    <select v-model="filters.status">
+      <option value="all">Show All</option>
+      <option value="only-waiting">Show only waiting</option>
+      <option value="only-finished">Show only finished</option>
+      <option value="only-cancled">Show only cancled</option>
+    </select>
+
     <br /><br />
 
     <Table>
@@ -23,7 +30,7 @@
       </template>
 
       <template #body>
-        <tr v-for="order in orders" :key="order.id">
+        <tr v-for="order in filteredOrders" :key="order.id">
           <td>{{ order.id }}</td>
           <td>{{ order.customerData["name"] }}</td>
           <td>{{ orderStatuses[order.status] }}</td>
@@ -137,15 +144,35 @@ export default {
       customerData: {},
       orderItems: [],
     },
+    filters: {
+      status: 'all'
+    }
   }),
 
   async mounted() {
     await this.loadItems();
   },
 
+  computed: {
+    filteredOrders() {
+      let ret = JSON.parse(JSON.stringify(this.orders));
+
+      if (this.filters.status === "only-waiting")
+        ret = ret.filter(order => order.status === 10)
+
+      if (this.filters.status === "only-finished")
+        ret = ret.filter(order => order.status === 30)
+
+      if (this.filters.status === "only-cancled")
+        ret = ret.filter(order => order.status === 40)
+
+      return ret;
+    }
+  },
+
   methods: {
     printOrders() {
-      OrderPrintingService.printOrders(this.orders, this.products);
+      OrderPrintingService.printOrders(this.filteredOrders, this.products);
     },
 
     async loadItems() {
