@@ -2,13 +2,15 @@
   <div id="login-wrapper">
     <div id="login">
       <div id="logo-pane">
-        <img id="logo" src="@/assets/logo.png" alt="RMS logo" />
+        <img id="logo" style="width: 80%" src="@/assets/rms-bunny-small.png" alt="RMS logo" />
         <div id="title">RMS</div>
-        <div id="version">V1.2.0</div>
+        <div id="version">V{{ version }}</div>
       </div>
 
       <div id="credentials">
-        <span id="credentials-title">Login</span>
+        <span id="credentials-title">
+          <img src="@/assets/rms-txt.png" style="width: 300px;margin-bottom: -30px;" alt="RMS txt" />
+        </span>
         <label>Username</label>
         <input v-model="credentials.username" type="text" />
         <label>Password</label>
@@ -24,12 +26,15 @@
 // Import services
 import LoginService from "@/services/LoginService";
 
+import { version } from '../../package.json'
+
 export default {
   data: () => ({
     credentials: {
       password: "",
       username: ""
-    }
+    },
+    version
   }),
 
   methods: {
