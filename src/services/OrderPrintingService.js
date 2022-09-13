@@ -6,7 +6,46 @@ export default {
         const doc = new jsPDF();
 
         let writingY = 20;
+
+        const totalOrderList = orders
+            .flatMap(order => order.orderItems);
+
+        const productCounts = {};
+        let totalPrice = 0;
+
+        totalOrderList.forEach(order => {
+            if (!(order.productId in productCounts))
+                productCounts[order.productId] = 0;
+
+            const prod = products.find(x => x.id == parseInt(order.productId));
+
+            productCounts[order.productId] += order.count;
+            totalPrice += prod.basePrice * order.count
+        });
+
+        const totalTableBody = Object.entries(productCounts).map(order => {
+            const prod = products.find(x => x.id == parseInt(order[0]));
+            order[0] = prod.name;
+            return order;
+        });
+
+        doc.text("RMS Orders list - Summary", 10, 10);
+
+        autoTable(doc, {
+            headStyles: { fillColor: [61, 166, 122] },
+            startY: 20,
+            head: [['Product', 'Amount']],
+            body: totalTableBody,
+        }),
+
+        doc.setFontSize(10);
+        doc.text("Total: " + totalPrice.toFixed(2)  + " Euro", 14, doc.lastAutoTable.finalY + 10);
+        doc.setFontSize(18);
         
+
+        doc.addPage();
+        
+        let i = 0;
         for (const order of orders) {
             const customerData = order.customerData;
             const orderItems = order.orderItems;
@@ -55,8 +94,11 @@ export default {
 
             writingY = doc.lastAutoTable.finalY + 10;
 
-            doc.addPage();
-            writingY = 20;
+            if (i < orders.length - 1) {
+                doc.addPage();
+                writingY = 20;
+                i++;
+            }
         }
         
         doc.save("rms-orders.pdf");
