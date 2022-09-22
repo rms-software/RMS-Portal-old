@@ -25,6 +25,10 @@ table {
   th, td {
     padding: 10px;
     text-align: center;
+
+    &.left {
+      text-align: left; 
+    }
   }
 
   thead {
