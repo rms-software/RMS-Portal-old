@@ -18,14 +18,16 @@ export default {
                 productCounts[order.productId] = 0;
 
             const prod = products.find(x => x.id == parseInt(order.productId));
-
+            
             productCounts[order.productId] += order.count;
-            totalPrice += prod.basePrice * order.count
+            
+            if (prod != undefined)
+                totalPrice += prod.basePrice * order.count
         });
 
         const totalTableBody = Object.entries(productCounts).map(order => {
             const prod = products.find(x => x.id == parseInt(order[0]));
-            order[0] = prod.name;
+            order[0] = prod?.name ?? '[Deleted product]';
             return order;
         });
 
@@ -42,7 +44,6 @@ export default {
         doc.text("Total: " + totalPrice.toFixed(2)  + " Euro", 14, doc.lastAutoTable.finalY + 10);
         doc.setFontSize(18);
         
-
         doc.addPage();
         
         let i = 0;
@@ -77,13 +78,13 @@ export default {
                 head: [['Product', 'Count', 'Price (individual)', 'Price (total)']],
                 body: orderItems.map(item => {
                     const prod = products.find(x => x.id == item.productId);
-                    const extraPrice = item.count * prod.basePrice;
+                    const extraPrice = item.count * (prod?.basePrice ?? 0);
                     totalPrice += extraPrice;
 
                     return [
-                        prod.name,
+                        prod?.name ?? '[Deleted product]',
                         item.count,
-                        prod.basePrice.toFixed(2) + ' euro',
+                        (prod?.basePrice ?? 0).toFixed(2) + ' euro',
                         extraPrice.toFixed(2) + ' euro'
                     ];
                 }),
