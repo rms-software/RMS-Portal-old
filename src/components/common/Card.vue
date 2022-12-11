@@ -5,7 +5,7 @@
     </div>
 
     <div id="card-image">
-      <img :src="image">
+      <img :src="baseApiUrl + image">
     </div>
 
     <div id="card-body">
@@ -16,6 +16,10 @@
 
 <script>
 export default {
+  data: () => ({
+    baseApiUrl
+  }),
+
   props: {
     title: {
       type: String,

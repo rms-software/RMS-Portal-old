@@ -2,6 +2,6 @@ import ApiService from "./ApiService";
 
 export default {
     async getGeneralInfo() {
-        return await ApiService.get("general/get-info");
+        return await ApiService.get("api/general-info");
     }
 }

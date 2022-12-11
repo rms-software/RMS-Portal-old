@@ -8,7 +8,7 @@ export default {
 
         // Do the request
         try {
-            await ApiService.get("general/get-info");
+            await ApiService.get("api/general-info");
             return true
         } catch(e) {
             return false

@@ -1,13 +1,13 @@
 <template>
   <div id="the-navigator">
     <router-link to="/rms/profile" id="profile-indicator">
-      <img v-if="generalInfo.profilePicture" :src="generalInfo.profilePicture" alt="profile picture" />
+      <img v-if="generalInfo.profilePicture" :src="baseApiUrl + generalInfo.profilePicture" alt="profile picture" />
       <div>
         <div id="username">
           {{ generalInfo.firstName }} {{ generalInfo.lastName }}
         </div>
         <div id="role">
-          {{ generalInfo.role }}
+          {{ roleToString(generalInfo.role) }}
         </div>
       </div>
     </router-link>
@@ -70,9 +70,11 @@
 </template>
 
 <script>
-import bus from "@/bus";
-
 export default {
+  data: () => ({
+    baseApiUrl
+  }),
+
   props: {
     generalInfo: {
       type: Object,
@@ -82,6 +84,19 @@ export default {
     foregroundColor: {
       type: String,
       required: true
+    }
+  },
+
+  methods: {
+    roleToString(role) {
+      switch (role) {
+        case 0:
+          return "Super Admin";
+        case 10:
+          return "Owner";
+        case 30:
+          return "Employee";
+      }
     }
   }
 }

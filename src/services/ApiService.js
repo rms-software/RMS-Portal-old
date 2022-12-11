@@ -1,8 +1,12 @@
 import axios from "axios";
 
-const baseApiUrl = process.env.NODE_ENV === 'production' ?
-    'https://rhino-ms.herokuapp.com/api/' :
-    'https://localhost:5001/api/'
+window.baseApiUrl = '';
+
+// window.baseApiUrl = 'https://rmsapi.bakkerijadriaans.nl/';
+window.baseApiUrl = 'https://rmsapi.dewitworstenbrood.nl/';
+
+// https://rmsapi.bakkerijadriaans.nl/api/general-info
+//         rmsapi.bakkerijadriaans.nl/api/general-info
 
 const ApiService = {
     async get(url) {

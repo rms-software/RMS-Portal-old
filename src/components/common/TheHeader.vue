@@ -1,7 +1,7 @@
 <template>
   <div id="the-header">
     <div id="logo-wrapper">
-      <img id="logo" :src="generalInfo.companyLogo" alt="RMS logo" />
+      <img id="logo" :src="baseApiUrl + generalInfo.companyLogo" alt="RMS logo" />
     </div>
 
     <div id="title-space">
@@ -12,6 +12,10 @@
 
 <script>
 export default {
+  data: () => ({
+    baseApiUrl
+  }),
+
   props: {
     generalInfo: {
       type: Object,

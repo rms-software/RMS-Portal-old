@@ -18,11 +18,13 @@ export default {
                 productCounts[order.productId] = 0;
 
             const prod = products.find(x => x.id == parseInt(order.productId));
+            console.log(order)
             
-            productCounts[order.productId] += order.count;
+            productCounts[order.productId] += parseInt(order.count);
             
-            if (prod != undefined)
-                totalPrice += prod.basePrice * order.count
+            if (prod != undefined) {
+                totalPrice += prod.basePrice * parseInt(order.count)
+            }
         });
 
         const totalTableBody = Object.entries(productCounts).map(order => {

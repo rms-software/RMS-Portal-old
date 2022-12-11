@@ -15,6 +15,7 @@
           <td class="left"><b>Status</b></td>
           <td class="left"><b>Before</b></td>
           <td class="left"><b>After</b></td>
+          <td class="left"><b>Show archived</b></td>
         </tr>
       </template>
       <template #body>
@@ -41,6 +42,9 @@
               v-model="filters.afterDate"
             />
           </td>
+          <td>
+            <Toggle v-model="filters.showArchived" />
+          </td>
         </tr>
       </template>
     </Table>
@@ -62,7 +66,7 @@
       </template>
 
       <template #body>
-        <tr v-for="order in filteredOrders" :key="order.id">
+        <tr v-for="order in filteredOrders" :key="order.id" :class="{ archived: order.archived }">
           <td>{{ order.id }}</td>
           <td>{{ order.customerData["name"] }}</td>
           <td :class="orderStatuses[order.status] === 'Delivered' ? `status-green` : orderStatuses[order.status] === 'Waiting' ? 'status-orange' : 'status-red'">{{ orderStatuses[order.status] }}</td>
@@ -75,6 +79,14 @@
             >
               <unicon name="eye" fill="white" />
               View
+            </button>
+
+            <button
+              class="btn txt-icon main spacing"
+              @click="toggleArchived(order)"
+            >
+              <unicon name="archive" fill="white" />
+              {{ order.archived ? "Unarchive" : "Archive" }}
             </button>
           </td>
         </tr>
@@ -156,6 +168,7 @@
 // Import components
 import Table from "@/components/common/Table";
 import Modal from "@/components/common/Modal";
+import Toggle from "@/components/common/Toggle";
 
 // Import libraries
 import Datepicker from "vuejs-datepicker";
@@ -170,15 +183,16 @@ export default {
     Table,
     Modal,
     Datepicker,
+    Toggle
   },
 
   data: () => ({
     orders: [],
     products: [],
     orderStatuses: {
-      10: "Waiting",
-      30: "Delivered",
-      40: "Cancled",
+      0: "Waiting",
+      10: "Delivered",
+      20: "Cancled",
     },
     activeOrder: {
       customerData: {},
@@ -188,6 +202,7 @@ export default {
       status: "all",
       afterDate: new Date(0),
       beforeDate: new Date(),
+      showArchived: false
     },
   }),
 
@@ -199,15 +214,19 @@ export default {
     filteredOrders() {
       let ret = JSON.parse(JSON.stringify(this.orders));
 
+      // Filter by archived
+      if (!this.filters.showArchived)
+        ret = ret.filter((order) => !order.archived);
+
       // Filter by status
       if (this.filters.status === "only-waiting")
-        ret = ret.filter((order) => order.status === 10);
+        ret = ret.filter((order) => order.status === 0);
 
       if (this.filters.status === "only-finished")
-        ret = ret.filter((order) => order.status === 30);
+        ret = ret.filter((order) => order.status === 10);
 
       if (this.filters.status === "only-cancled")
-        ret = ret.filter((order) => order.status === 40);
+        ret = ret.filter((order) => order.status === 20);
 
       // Filter by before date
       ret = ret.filter(
@@ -225,6 +244,13 @@ export default {
   },
 
   methods: {
+    async toggleArchived(order) {
+      if (order.archived) await OrderService.unarchiveOrder(order);
+      else await OrderService.archiveOrder(order);
+
+      await this.loadItems();
+    },
+
     printOrders() {
       OrderPrintingService.printOrders(this.filteredOrders, this.products);
     },
@@ -285,11 +311,21 @@ export default {
     },
 
     getProductName(order) {
-      return this.getProduct(order)["name"];
+      const product = this.getProduct(order);
+
+      if (!product["name"])
+        return "[Deleted product]";
+
+      return product["name"];
     },
 
     getProductPrice(order) {
-      return this.getProduct(order)["basePrice"];
+      const product = this.getProduct(order);
+
+      if (!product["basePrice"])
+        return 0;
+
+      return product["basePrice"];
     },
 
     openOrderPopup(order) {
@@ -301,6 +337,12 @@ export default {
 </script>
 
 <style scoped lang="scss">
+tr.archived {
+  opacity: 0.15;
+  background: white;
+  text-decoration: line-through;
+}
+
 .status-red {
   background: rgb(255, 180, 180);
 }

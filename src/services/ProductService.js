@@ -18,7 +18,7 @@ export default {
 
         return await ApiService.postFD("products/update", formData)
     },
-    getAllProducts: async () => await ApiService.get("products"),
+    getAllProducts: async () => await ApiService.get("api/products"),
     getProduct: async productId => await ApiService.get(`products/${productId}`),
     deleteProduct: async productId => await ApiService.delete(`products/${productId}`),
 }
